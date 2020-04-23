@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wf.shucat.mapper.CatMapper">
+
+    <resultMap id="CatResult" type="Cat">
+        <id property="id" column="id"></id>
+        <result property="name" column="name"></result>
+        <result property="sex" column="sex"></result>
+        <result property="age" column="age"></result>
+        <result property="temper" column="temper"></result>
+        <result property="home" column="home"></result>
+    </resultMap>
+
+    <sql id="selectCat">
+        select c.id,c.name,c.sex,c.age,c.temper,c.home from cat c
+    </sql>
+
+    <select id="findAll" resultMap="CatResult">
+        <include refid="selectCat"></include>
+<!--        select c.id,c.name,c.sex,c.age,c.temper,c.home,cp.pic from cat c left join cat_pic cp where c.id=cp.cid-->
+    </select>
+    <select id="findById" resultType="com.wf.shucat.bean.Cat">
+        <include refid="selectCat"></include> and id = #{id}
+    </select>
+</mapper>
